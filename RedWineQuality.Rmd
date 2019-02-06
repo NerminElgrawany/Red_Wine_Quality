@@ -1,0 +1,927 @@
+---
+title: "Red Wine Quality"
+author: "Nermin Elgrawany"
+date: "January 14, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Explore the data:
+
+#####Load the dataset and packages
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+rwq <- read.csv('wineQualityReds.csv')
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#packages:
+library(ggplot2)
+library(gridExtra)
+
+```
+
+#####Names of dataframe variables:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+names(rwq)
+```
+
+#####The dimenssions of the dataframe:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+dim(rwq)
+```
+
+#####Datatype of the dataframe:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+str(rwq)
+```
+
+#####Statistical Summary of the dataframe:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+summary(rwq)
+```
+
+#####Subset the dataframe to execlude the X variable
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+rwq2 <- subset(rwq, select= -X)
+```
+
+
+
+
+
+
+#### Dataframe in plots:
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+grid.arrange (qplot(x= quality, data= rwq2),
+              qplot(x= alcohol, data= rwq2),
+              qplot(x= density, data = rwq2),
+              qplot(x= pH, data = rwq2),
+              qplot(x= residual.sugar, data = rwq2),
+              qplot(x= fixed.acidity, data = rwq2),
+              qplot(x= volatile.acidity, data = rwq2),
+              qplot(x= citric.acid, data = rwq2),
+              qplot(x= chlorides, data = rwq2),
+              qplot(x= sulphates, data = rwq2),
+              qplot(x= free.sulfur.dioxide, data = rwq2),
+              qplot(x= total.sulfur.dioxide, data = rwq2),
+              ncol= 4)
+```
+
+From the plots above, the histograms shows the distribution of the data.
+The distribution of the dataframe varied from normal distribution to right-skewed.
+
+
+
+## Univariate Plot Section:
+
+
+
+####Explore each variable of the dataframe
+
+
+
+
+#### Quality:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#quality:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = quality ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = quality  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Quality:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$quality)
+```
+
+The histogram shows the distribution of Quality, which appears to be normal with average between (5-6). The boxplot depict the outliers which have records under or exceed the rating of (3:8) where it is not detected.
+
+
+
+
+#### Alcohol:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#alcohol:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = alcohol ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = alcohol  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Alcohol: 
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$alcohol)
+```
+            
+The histogram shows the distribution of Alcohol, which appears to be right-skewed with highest peak of the distribution in the first quartile (approx. at 9.5). The boxplot depict the outliers, where there are outliers detected above the whisker of the boxplot (above 14). 
+
+
+
+
+####Density:
+            
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#density:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = density ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = density  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Density:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$density)
+```
+
+The Density distribution is almost symmetric, with most of the values between 0.995 and 0.997. The distribution has median value of 0.997. The poxplot detected the outliers as there are outliers under 0.991 and above 1.005. 
+
+
+
+
+#### PH:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#pH:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = pH ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = pH  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of PH:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$pH)
+```
+
+The distribution of PH seems symmetrical or could be also considered bimodal with both peaks very close to each other. The median value is 3.31, and most of pH between 3.21 and 3.4. The boxplot shows the outliers above 4.01 and under 2.74. 
+
+
+
+
+#### Residual Sugar:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#residual.sugar:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = residual.sugar ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = residual.sugar  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Residual Sugar:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$residual.sugar)
+```
+
+The distribution of Residual Rugar is right skewed with a long tail in the right side. There are many small bars on the right side of the main peak. The boxplot detected the outliers above the maximum value of PH.
+
+
+
+
+#### Fixed Acidity:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#fixed.acidity:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = fixed.acidity ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = fixed.acidity  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Fixed Acidity:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$fixed.acidity)
+```
+
+The distribution of Fixed Acidity is slightly right skewed. The median is 7.90. Most fixed acidity values ranged between 7.10 and 9.20. There are some outliers in the higher range (~ >15).
+
+
+
+
+#### Volatile Acidity:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#volatile.acidity:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = volatile.acidity ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = volatile.acidity  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Volatile Acidity:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$volatile.acidity)
+```
+
+The distribution of volatile acidity is non-symmetric and bimodal with two peaks at 0.4 and 0.6. The median value is 0.52. Most observations fall in the range between 0.39 - 0.64 and outliers on the higher end of the scale are visible.
+
+
+
+
+#### Citric Acid:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#citric.acid:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = citric.acid ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = citric.acid  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Citric Acid:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$citric.acid)
+```
+
+The distribution of Citric Acid is right-skewed with some ups and downs. We can see peaks at 0.25 and 0.50 which may hint at some bimodal behavior. A single value appears far away (approx. at 1.00) in the boxplot, which may depict an outlier.
+
+
+
+
+#### Chlorides:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#chlorides:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = chlorides ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = chlorides  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Chlorides:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$chlorides)
+```
+The distribution of Chlorides looks right-skewed with discrete long right tail, and the extremes values clearly appears above and under the whisker in the boxplot. 
+
+
+
+
+#### Sulphates:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#sulphates:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = sulphates ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = sulphates  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Sulphates:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$sulphates)
+```
+
+The distribution of Sulphates is right-skewed, with a long tail of discrete  outliers, which is also clearly obvious in the boxplot. Most of Sulphates values is between 0.55 and 0.73.
+
+
+
+
+#### Free Sulfur Dioxide:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#free.sulfur.dioxide:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = free.sulfur.dioxide ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = free.sulfur.dioxide  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Free Sulfur Dioxide:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$free.sulfur.dioxide)
+```
+
+The distribution of Free Sulfur Dioxide is right-skewed. The right tail extends until a maximum of 72 with a gap between 57 and 66.
+
+
+
+
+#### Total Sulfur Dioxide:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+#total.sulfur.dioxide:
+grid.arrange(ggplot(rwq2, aes( x = 1, y = total.sulfur.dioxide ) ) + 
+               geom_jitter(alpha = 0.1 ) +
+               geom_boxplot(alpha = 0.2, color = 'red' ) ,
+             ggplot(rwq2, aes( x   = total.sulfur.dioxide  ) ) + 
+               geom_histogram(bins=30 ),ncol=2)
+```
+
+Statistical Summary of Total Sulfur Dioxide:
+
+```{r, echo= FALSE, message= FALSE, warning= FALSE}
+summary(rwq2$total.sulfur.dioxide)
+```
+
+The distribution of Total Sulfur Dioxide is right-skewed with a median value of 38. On the right tail and the boxplot we can see a gap between 165 and 278 with only two values approx. greater than 278 which considered outliers.
+
+
+
+
+### Univariate Plot Section Analysis:
+
+
+#### What is the structure of your dataset?
+
+There are 1599 obsevations of 12 variables in the data set, after execluding one variable (X variable).
+
+#### What is/are the main feature(s) of interest in your dataset?
+
+Quality of the red wine is the main feature in the dataset and will try to investigate how other variables would influence the quality of the wine. 
+
+#### What other features in the dataset do you think will help support your \investigation into your feature(s) of interest?
+
+All Variables seems to be intersting features, such as Alcohol, Sugar Residual, Density and PH.
+
+#### Did you create any new variables from existing variables in the dataset?
+
+No, except execluding the X variable, because it just the index.
+
+#### Of the features you investigated, were there any unusual distributions? \Did you perform any operations on the data to tidy, adjust, or change the form \of the data? If so, why did you do this?
+
+There were unusual distributions such as fixed.acidity, volatile.acidity, total.sulfur.dioxide, and sulphates seem to be long-tailed.
+I performed adjustment to the binwidth of Quality histogram as well as adding titles for the plots and x axis and y axis to look tidy.  
+
+
+## Bivariate Plot Section:
+
+Let's find some correlation between Quality and the other Features.
+
+#### Quality cor. Alcohol:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= alcohol), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Alcohol') +
+  xlab('Quality') +
+  ylab('Alcohol')
+```
+
+The correlation between Quality and Alcohol seems to be strong positive specially in quality factor 5 and 6. The coefficient is 0.4761663
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$alcohol)
+```
+
+#### Quality cor. Density:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= density), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Density') +
+  xlab('Quality') +
+  ylab('Density')
+```
+
+The correlation between Quality and Density is negative, which means that the higher Quality related to lower Density. The coefficient is -0.1749192
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq$quality, rwq$density)
+```
+
+#### Quality cor. pH:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= pH), data= rwq2)+
+  geom_jitter(alpha= .3)+ 
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. pH') +
+  xlab('Quality') +
+  ylab('pH')
+```
+
+The correlation between Quality and pH is negative, but it seems like there is no relationship as the coefficient is -0.05773139.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq$quality, rwq$pH)
+```
+
+#### Quality cor. Residual Sugar:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= residual.sugar), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Residual Sugar') +
+  xlab('Quality') +
+  ylab('Residual Sugar')
+```
+
+The correlation between Quality and Residual Sugar is positive, but it seems like there is no relationship as the coefficient is 0.01373164.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$residual.sugar)
+```
+
+#### Quality cor. Fixed Acidity:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= fixed.acidity), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Fixed Acidity') +
+  xlab('Quality') +
+  ylab('Fixed Acidity')
+```
+
+The correlation between Quality and Fixed Acidity is positive, but it seems like the relationship not obvious as the coefficient is not sufficiently high 0.1240516.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$fixed.acidity)
+```
+
+#### Quality cor. Vlatile Acidity:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= volatile.acidity), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Volatile Acidity') +
+  xlab('Quality') +
+  ylab('Volatile Acidity')
+```
+
+The correlation between Quality and Volatile Acidity is strong negative, as the coefficient is -0.3905578, that means the higher quality has lower volatile acidity. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$volatile.acidity)
+```
+
+#### Quality cor. Citric Acid:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= citric.acid), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Citric Acid') +
+  xlab('Quality') +
+  ylab('Citric Acid')
+```
+
+The correlation between Quality and Citric Acid is positive, and the coefficient is 0.2263725.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$citric.acid)
+```
+
+#### Quality cor. Chlorides:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= chlorides), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Chlorides') +
+  xlab('Quality') +
+  ylab('Chlorides')
+```
+
+The correlation between Quality and Chlorides is negative, but it seems like the relationship not obvious as the coefficient is -0.1289066.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$chlorides)
+```
+
+#### Quality cor. Sulphates:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= sulphates), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Sulphates') +
+  xlab('Quality') +
+  ylab('Sulphates')
+```
+
+The correlation between Quality and Sulphates is positive, as the coefficient is 0.2513971.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$sulphates)
+```
+
+#### Quality cor. Free Sulfur Dioxide:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= free.sulfur.dioxide), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Free Sulfur Dioxide') +
+  xlab('Quality') +
+  ylab('Free Sulfur Dioxide')
+```
+
+The correlation between Quality and Free Sulfur Dioxide is negative, as the coefficient is -0.05065606.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$free.sulfur.dioxide)
+```
+
+#### Quality cor. Total Sulfur Dioxide:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x= factor(quality), y= total.sulfur.dioxide), data= rwq2)+
+  geom_jitter(alpha= .3)+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Total Sulfur Dioxide') +
+  xlab('Quality') +
+  ylab('Total Sulfur Dioxide')
+```
+
+The correlation between Quality and total Sulfur Dioxide is negative, as the coefficient is -0.1851003.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$quality, rwq2$total.sulfur.dioxide)
+```
+
+
+
+
+### Plots of other features (not the main feature):
+
+#### Alcohol cor. Acidity
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+rwq2$acidity <- rwq2$fixed.acidity + rwq2$volatile.acidity + rwq2$citric.acid
+
+ggplot(data=rwq2, aes(x=alcohol, y=acidity)) +
+  geom_point(alpha = 0.3, size = 1) +
+  geom_smooth(method = "lm", se = FALSE,size=1)+
+  ggtitle('Alcohol vs. Acidity')
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$alcohol, rwq2$acidity)
+```
+
+#### pH cor. Free Sulfur Dioxide:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=rwq2, aes(x=pH, y= free.sulfur.dioxide)) +
+  geom_point(alpha = 0.3, size = 1) +
+  geom_smooth(method = "lm", se = FALSE,size=1)+
+  ggtitle('pH vs. Free Sulfur Dioxide')
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$pH, rwq2$free.sulfur.dioxide)
+```
+
+#### Density cor. Residual Sugar:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=rwq2, aes(x=density, y=residual.sugar)) +
+  geom_point(alpha = 0.3, size = 1) +
+  geom_smooth(method = "lm", se = FALSE,size=1)+
+  ggtitle('Density vs. Residual Sugar')
+```
+
+Correlation Coefficient between Density and Residual Sugar:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor.test(rwq2$density, rwq2$residual.sugar)
+```
+
+
+
+### Bivariate Plot Section Analysis:
+
+
+#### Talk about some of the relationships you observed in this part of the \investigation. How did the feature(s) of interest vary with other features in \the dataset?
+
+As we can see, there were many kinds of correlations between quality and the other features, some of these correlations were strong positive such as fixed.acidity, citric.acid, sulphates, and alcohol and other correlations were negative strong such as volatile.acidity, chlorides and density
+
+#### Did you observe any interesting relationships between the other features \(not the main feature(s) of interest)?
+
+The correlation between the other features appeared as follow:
+Alcohol vs. Acidity = -0.06666786 , PH vs. Free.Sulfur.Dioxide = 0.0703775 , Density vs. Residual.Sugar = 0.3552834
+
+#### What was the strongest relationship you found?
+
+The strongest relationship found between Quality and Alcohol. 
+
+
+
+## Multivariate Plot Section:
+
+
+#### Quality vs. Citric Acid and Sulphates
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x = sulphates, 
+           y = citric.acid  , color = factor(quality)), 
+       data = rwq2) +
+      geom_point(alpha = 0.8, size = 1) +
+      geom_smooth(method = "lm", se = FALSE,size=1)  +
+  ggtitle('Quality vs. Citric Acid and Sulphates') +
+  xlab('Sulphates (g/ dm^3)') +
+  ylab('Citric Acid (g/dm^3)')+
+  scale_color_brewer(type='seq',
+                   guide=guide_legend(title='Quality'))
+```
+
+The graph represents the features influenced in the red wine quality, which are Sulphates and Citric Acid. It shows that the quality increases when Ctric Acid and Sulphates increase. As the influence appeared clearly in the range between (0.25 to .70 g/dm^3) of Citric Acid and (0.5 to 0.9 g/dm^3) of Sulphates.
+
+
+#### Quality vs. Alcohol and Statistical Summary
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(factor(quality), 
+            alcohol), 
+        data = rwq2) +
+  geom_jitter( alpha = .3)  +
+  geom_boxplot( alpha = .5,color = 'blue')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Alcohol and Statistical Summary') +
+  xlab('factor(Quality)') +
+  ylab('Alcohol(%volume)')
+```
+
+The graph represents the factors of quality influenced by the Alcohol and the avarage of Alcohol in each factor of quality. It shows that the quality of red wine increases when Alcohol increase, as well as increasing in the avarage in each factor. As the influence appeared in the range of (8% to 13%) of Alcohol volume and high influence in fifth and sixth factor of Quality. 
+
+#### Quality vs. Volatile Acidity and Total Sulfur Dioxide
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(rwq2, aes(x=volatile.acidity, y=total.sulfur.dioxide, color=factor(quality))) +
+  geom_point() +
+  ggtitle('Quality vs. Volatile Acidity and Total Sulfur Dioxide') +
+  xlab('Volatile Acidity(g/dm^3)') +
+  ylab('Total Sulfur Dioxide(g/dm^3)')+
+  scale_color_brewer()
+```
+
+The graph represents the features influenced in the red wine quality, which are Volatile Acidity and Total Sulfur Dioxide. It shows that the quality decreases when Volatile Acidity and Total Sulfur Dioxide increase. As most of the high quality lay on the range of (100 g/dm^3) in Total Sulfur Dioxide and (0.5 g/dm^3) of Volatile Acidity
+
+
+#### Quality vs. pH and Chlorides
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(rwq2, aes(x=pH, y= chlorides, color=factor(quality))) + 
+  geom_point() + 
+  ggtitle('Quality vs. pH and Chlorides') +
+  xlab('pH') +
+  ylab('Chlorides(g/dm^3)')+
+  scale_color_brewer()
+```
+
+The graph represents the features influenced in the red wine quality, which are ph and Chlorides. It shows that these features do not have obvious influence in the quality of red wine except in the lower range of Chlorides and the range between (3.0 and 3.5 g/dm^3) of pH. 
+
+
+#### Quality vs. Density and Residual Sugar
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(rwq2, aes(x=density, y= residual.sugar, color=factor(quality))) + 
+  geom_point() + 
+  ggtitle('Quality vs. Density and Residual Sugar') +
+  xlab('Density') +
+  ylab('Residual Sugar(g/dm^3)')+
+  scale_color_brewer()
+```
+
+
+The graph represents the features influenced in the red wine quality, which are Density and Residual Sugar. It shows that the influence of Residual Sugar lay on the lower range between (approx. 0 to 4 g/dm^3) and range between (0.990 to 0.995) of Density.
+
+
+#### Quality vs. Acidity and Statistical Summary
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(factor(quality), 
+            acidity), 
+        data = rwq2) +
+  geom_jitter( alpha = .3)  +
+  geom_boxplot( alpha = .5,color = 'blue')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Acidity and Statistical Summary') +
+  xlab('factor(Quality)') +
+  ylab('Acidity(g/dm^3)')
+```
+
+
+The graph represents the factors of quality influenced by the Acidity and the avarage of Acidity in each factor of quality. It shows that the quality of red wine slightly increases when Acidity increase, as well as increasing in the avarage in each factor. As the influence appeared in the range between (6 to 12.5 g/dm^3) of Acidity and high influence in fifth and sixth factor of Quality. 
+
+
+### Multivariate Plot Section Analysis:
+
+
+
+#### Talk about some of the relationships you observed in this part of the \investigation. Were there features that strengthened each other in terms of \looking at your feature(s) of interest?
+
+The relationship between features showed as follow:
+
+- Acidity and Quality: the less Acidity, the better quality.
+- Chlorides, Sulfates and Quality: the less chlorides and sulphates, the better quality.
+- PH, Density and Quality: the less PH and Density, the better quality.
+- Alcohol, Residual Sugar and Quality: the higher Alcohol and Residual Sugar, the better quality.
+- Free Sulfur Dioxide, Total Sulfur Dioxide and Quality: the less Free Sulfur Dioxide and Total Sulfur Dioxide, the better quality.
+
+#### Were there any interesting or surprising interactions between features?
+
+Most of the features were resulted as expected.
+
+
+
+
+## Final Plots and Summary Section:
+
+
+### Plot 1:
+
+The plot shows the correlation between Quality and Citric Acid and Sulphates
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(x = sulphates, 
+           y = citric.acid  , color = factor(quality)), 
+       data = rwq2) +
+      geom_point(alpha = 0.8, size = 1) +
+      geom_smooth(method = "lm", se = FALSE,size=1)  +
+  ggtitle('Quality vs. Citric Acid and Sulphates') +
+  xlab('Sulphates (g/ dm^3)') +
+  ylab('Citric Acid (g/dm^3)')+
+  scale_color_brewer(type='seq',
+                   guide=guide_legend(title='Quality'))
+```
+
+
+### Description Plot 1:
+
+
+The reason behind choosing this plot is the importance of these features to the quality of the red wine, as its have the higher positive correlation with the quality variable.
+The graph represents the features influenced in the red wine quality, which are Sulphates and Citric Acid. It shows that the quality increases when Ctric Acid and Sulphates increase. As the influence appeared clearly in the range between (0.25 to .70 g/dm^3) of Citric Acid and (0.5 to 0.9 g/dm^3) of Sulphates.
+
+
+
+
+### Plot 2:
+
+
+
+The next plot shows the correlation between Quality and Alcohol and Statistical Summary.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(aes(factor(quality), 
+            alcohol), 
+        data = rwq2) +
+  geom_jitter( alpha = .3)  +
+  geom_boxplot( alpha = .5,color = 'blue')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4)+
+  ggtitle('Quality vs. Alcohol and Statistical Summary') +
+  xlab('factor(Quality)') +
+  ylab('Alcohol(%volume)')
+```
+
+### Description Plot 2:
+
+
+I selected this plot due to the importance of this feature to the quality of the red wine, as its have the highest positive correlation with the quality variable.
+The graph represents the factors of quality influenced by the Alcohol and the avarage of Alcohol in each factor of quality. It shows that the quality of red wine increases when Alcohol increase, as well as increasing in the avarage in each factor. As the influence appeared in the range of (8% to 13%) of Alcohol volume and high influence in fifth and sixth factor of Quality.
+
+
+
+
+### Plot 3:
+
+This plot shows the correlation of Volatile Acidity and Total Sulfur Dioxide with Quality.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(rwq2, aes(x=volatile.acidity, y=total.sulfur.dioxide, color=factor(quality))) +
+  geom_point() +
+  ggtitle('Quality vs. Volatile Acidity and Total Sulfur Dioxide') +
+  xlab('Volatile Acidity(g/dm^3)') +
+  ylab('Total Sulfur Dioxide(g/dm^3)')+
+  scale_color_brewer()
+```
+  
+
+### Description Plot 3:
+
+
+
+In this plot I combined the lowest correlation coefficient features with the quality variable.
+The graph represents the features influenced in the red wine quality, which are Volatile Acidity and Total Sulfur Dioxide. It shows that the quality decreases when Volatile Acidity and Total Sulfur Dioxide increase. As most of the high quality lay on the range of (100 g/dm^3) in Total Sulfur Dioxide and (0.5 g/dm^3) of Volatile Acidity
+
+
+
+
+
+## Reflection:
+
+
+
+The object of this exploratory data analysis is to find out which chemical properties would afftect the quality of red wines. So, We went throught the dataset in overview then exploring each variable (Univariate Analysis), after that we tried to have a look in the relationship of Quality and the other variables, on the other hand, the relationship betwen different variables (Bivariate Analysis), in the end of the exploring and analyzing process, we tried to explore 2 or more variables relationship with Quality (Multivariate Analysis) . 
+
+The results of exploring and analyzing this dataset concluding that there are some features had positive correlation such as Alcohol (the highest correlation coefficient) and others had negative correlation such as Volatile Acidity (the lowest correlation coefficient) which influenced the Quality of red wine. 
+
+However, after all these analysis, we found none of the correlation coefficient were above 0.5 which means that the correlation of quality and other features is weak overall.
+
+In this extent, we have to say that the measure of red wine quality is subjective, which means the data analysis is not enough to reveal all factors and to rate a red wine.
+
+On the other hand, we observed that more than 80% of red wine features are existed in quality rate of 5 and 6 , this limitation makes that there is not enough data to analyze good wine's factors. In furter analysis, a dataset has more observations will be preferred. 
+ 
+
+
+
+#### References:
+
+
+
+- Github Respositories.
+- Tensorflow.
+- Youtube.
